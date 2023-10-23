@@ -5,7 +5,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 
-const { mongoUrI } = require("./config/config");
+const { mongoUrI ,server_url} = require("./config/config");
 const postRoute = require("./routes/post");
 const userRoute = require("./routes/user");
 const followerRoute = require("./routes/follower");
@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(fileUpload({ limits: { fileSize: "10*1024*1024" } }));
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: server_url,
     methods: "GET, POST, PUT, DELETE",
     credentials: true,
   })
