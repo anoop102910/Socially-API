@@ -2,7 +2,7 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-const { jwt_secret_key } = require("../config/config");
+const { jwt_secret_key, server_url } = require("../config/config");
 const sendError = require("../helper/sendError");
 
 const signup = async (req, res) => {
@@ -41,7 +41,7 @@ const signup = async (req, res) => {
 
     const token = jwt.sign({ userId: user._id, name: user.firstName + " " + user.lastName }, jwt_secret_key, { expiresIn: "24h" });
     console.log(token);
-    res.cookie("token", token, { maxAge: 36000000, path: "/", httpOnly: true });
+    res.cookie("token", token, { maxAge: 36000000, path: "/", httpOnly: true, secure: true, sameSite: none, domain: server_url });
     res.status(200).json({ succuss: true, message: "Signin succussful" });
   } catch (error) {
     console.log(error);
@@ -70,7 +70,7 @@ const signin = async (req, res) => {
 
     const token = jwt.sign(tokenVal, jwt_secret_key, { expiresIn: "24h" });
     // console.log(token);
-    res.cookie("token", token, { maxAge: 36000000, path: "/", httpOnly: true });
+    res.cookie("token", token, { maxAge: 36000000, path: "/", httpOnly: true, secure: true, sameSite: none, domain: server_url });
     res.status(200).json({ succuss: true, message: "Signin succussfull" });
   } catch (error) {
     res.status(500).json({ error: error.message });
