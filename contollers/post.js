@@ -7,48 +7,6 @@ const Like = require("../models/Like");
 const Friend = require("../models/Friend");
 const Follower = require('../models/Follower')
 
-// const getAllPosts = async (req, res) => {
-//   try {
-//     const userId = req.userId;
-//     const limit = req.query.limit;
-//     const page = req.query.page;
-
-//     const friends = await Friend.find({ user1Id: userId }).select("user2Id");
-//     friends.push({ user2Id: userId });
-
-//     const id = friends.map(friend => new mongoose.Types.ObjectId(friend.user2Id));
-
-//     let posts = await Post.find({ userId: { $in: id } })
-//       .populate({ path: "userId", select: "_id firstName lastName ", alias: "user" })
-//       .sort({ createdAt: -1, _id: -1 })
-//       .limit(limit)
-//       .skip(limit * (page - 1))
-//       .lean();
-
-//     posts = await Promise.all(
-//       (posts = posts.map(async post => {
-//         try {
-//           let like = await Like.find({ postId: post._id }).lean();
-//           post.like = like;
-//           return post;
-//         } catch (error) {
-//           console.log(error);
-//         }
-//       }))
-//     );
-
-//     posts.map(post => {
-//       post.createdBy = post.userId;
-//       delete post.userId;
-//     });
-
-//     res.json(posts);
-//   } catch (error) {
-//     console.log(error);
-//     sendError(res, 500, error.message);
-//   }
-// };
-
 const getAllPosts = async (req, res) => {
   try {
     const userId = req.userId;

@@ -41,7 +41,7 @@ const signup = async (req, res) => {
 
     const token = jwt.sign({ userId: user._id, name: user.firstName + " " + user.lastName }, jwt_secret_key, { expiresIn: "24h" });
     console.log(token);
-    res.cookie("token", token, { maxAge: 36000000, path: "/", httpOnly: false });
+    res.cookie("token", token, { maxAge: 36000000, path: "/", httpOnly: true });
     res.status(200).json({ succuss: true, message: "Signin succussful" });
   } catch (error) {
     console.log(error);
@@ -70,7 +70,7 @@ const signin = async (req, res) => {
 
     const token = jwt.sign(tokenVal, jwt_secret_key, { expiresIn: "24h" });
     // console.log(token);
-    res.cookie("token", token, { maxAge: 36000000, path: "/", httpOnly: false });
+    res.cookie("token", token, { maxAge: 36000000, path: "/", httpOnly: true });
     res.status(200).json({ succuss: true, message: "Signin succussfull" });
   } catch (error) {
     res.status(500).json({ error: error.message });
