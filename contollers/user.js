@@ -41,7 +41,9 @@ const signup = async (req, res) => {
 
     const token = jwt.sign({ userId: user._id, name: user.firstName + " " + user.lastName }, jwt_secret_key, { expiresIn: "24h" });
     console.log(token);
-    res.cookie("token", token, { maxAge: 36000000, path: "/", httpOnly: true, secure: true, sameSite: 'none', domain: server_url });
+    res.setHeader("Authorization", `Bearer ${token}`);
+    res.set('Access-Control-Expose-Headers', 'Authorization')
+    // res.cookie("token", token, { maxAge: 36000000, path: "/", httpOnly: true, secure: true, sameSite: "none", domain: server_url });
     res.status(200).json({ succuss: true, message: "Signin succussful" });
   } catch (error) {
     console.log(error);
@@ -51,7 +53,6 @@ const signup = async (req, res) => {
 
 const signin = async (req, res) => {
   try {
-    // console.log(req.body);
     const { email, password } = req.body;
 
     if (email?.length == 0 || password?.length == 0) return res.status(400).json({ error: "All fields are required" });
@@ -69,8 +70,10 @@ const signin = async (req, res) => {
     if (user.profileImage) tokenVal.profileImage = user.profileImage;
 
     const token = jwt.sign(tokenVal, jwt_secret_key, { expiresIn: "24h" });
-    // console.log(token);
-    res.cookie("token", token, { maxAge: 36000000, path: "/", httpOnly: true, secure: true, sameSite: 'none', domain: server_url });
+    console.log(token);
+    res.setHeader("Authorization", `Bearer ${token}`);
+    res.set('Access-Control-Expose-Headers', 'Authorization')
+    // res.cookie("token", token, { maxAge: 36000000, path: "/", httpOnly: true, secure: true, sameSite: "none", domain: server_url });
     res.status(200).json({ succuss: true, message: "Signin succussfull" });
   } catch (error) {
     res.status(500).json({ error: error.message });
