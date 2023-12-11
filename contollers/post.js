@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
-
 const sendError = require("../helper/sendError");
-const User = require("../models/User");
 const Post = require("../models/Post");
 const Like = require("../models/Like");
-const Friend = require("../models/Friend");
 const Follower = require('../models/Follower')
 
 const getAllPosts = async (req, res) => {

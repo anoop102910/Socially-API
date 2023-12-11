@@ -1,16 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const path = require("path");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
-
 const { mongoUrI ,server_url} = require("./config/config");
 const postRoute = require("./routes/post");
 const userRoute = require("./routes/user");
 const followerRoute = require("./routes/follower");
-const checkCookieValidation = require("./contollers/auth/checkCookieValidation");
-const logout = require("./contollers/auth/logout");
 
 const app = express();
 
@@ -33,8 +29,6 @@ app.get("/", (req, res) => {
   res.status(200).json({ succuss: true, message: "Listening on port number 5000" });
 });
 
-app.get('/check-cookie-validation',checkCookieValidation);
-app.get('/logout',logout)
 
 app.get("*", (req, res) => {
   res.status(404).json({ message: "Page not found" });
