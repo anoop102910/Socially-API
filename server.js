@@ -7,6 +7,7 @@ const { mongoUrI ,server_url} = require("./config/config");
 const postRoute = require("./routes/post");
 const userRoute = require("./routes/user");
 const followerRoute = require("./routes/follower");
+const commentRoute = require("./routes/comment");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(cookieParser());
 app.use("/api/post", postRoute);
 app.use("/api/user", userRoute);
 app.use("/api/follower", followerRoute);
+app.use("/api/comment", commentRoute);
 
 
 app.get("/", (req, res) => {
